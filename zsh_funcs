@@ -1,0 +1,124 @@
+
+#Alias
+alias vi="nvim"
+alias vim="nvim"
+alias scap="flameshot gui"
+alias mountnas="sudo mount 192.168.0.56:/ /mnt/nas"
+alias umountnas="sudo umount /mnt/nas"
+alias status="git status"
+alias editzsh="vi ~/.zshrc"
+alias editvi="cd ~/.config/nvim && vi ~/.config/nvim/init.vim && cd -"
+alias editpoly="cd ~/.config/polybar/ && vi * && cd -"
+alias editranger="cd ~/.config/ranger && vi * && cd -"
+alias shutdown="wait-shutdown.sh"
+alias restart="wait-restart.sh"
+alias gitupdate="git commit -am 'update' && git push"
+
+# suffix alias
+alias -s txt="nvim"
+
+# function alias
+lsgrep(){
+    ls -a $(pwd) | grep -i -- $1
+}
+
+mkcd(){
+    mkdir $1 && cd $1
+}
+
+
+vigo(){
+    vi $(ls . | fzf)
+}
+
+gitget(){
+    URL="https://github.com/HPRIOR/"
+    git clone "$URL$1" 
+}
+
+
+# create document in vidoc folder with scratch functionality, naming, and stdin support
+vidoc(){      
+    if [ -t 0 ]; then 
+        scratch_count=$(tail -n 1 "/Users/harryprior/Documents/vidocs/.scratches/.scratch_count")
+        if [ -z "$1" ]; then
+            nvim  "/Users/harryprior/Documents/vidocs/.scratches/scratch-$scratch_count"
+            echo "$((scratch_count + 1))" >> "/Users/harryprior/Documents/vidocs/.scratches/.scratch_count"
+        else
+            nvim "/Users/harryprior/Documents/vidocs/$1"
+        fi
+    else
+        if [ -z "$1" ]; then
+            nvim - +"file /Users/harryprior/Documents/vidocs/.scratches/scratch-$scratch_count"
+            echo "$((scratch_count + 1))" >> "/Users/harryprior/Documents/vidocs/.scratches/.scratch_count"
+        else 
+            nvim - +"file /Users/harryprior/Documents/vidocs/$1"
+        fi
+    fi
+}
+
+sedhere(){
+    for file in *(.)
+    do   
+        if [[ $file != *.back ]]; then
+            cp "$file" ".$file.back"
+        fi
+    done
+    find . -type f -exec sed -i "$1" {} \;
+}
+
+sedundo(){
+    for file in .* 
+    do 
+        if [[ $file == *.back ]]; then
+            new_name="${file:1:-5}"
+            mv -f "$file" "$new_name"
+        fi
+    done
+}
+
+findhere(){
+    grep -rnw "$PWD" -e $1
+}
+
+clcsv(){
+    column -s, -t < $1 | less -#2 -N -S
+}
+
+killport(){
+    fuser -k "$1"/tcp
+}
+
+viewport(){
+    fuser "$1"/tcp
+}
+
+f(){
+    local p=$(fzf)
+    local d=${p%/*}
+    cd "$d"
+}
+
+fid(){
+    cd $(fd --type directory | fzf)
+}
+
+fhi(){
+    local var=$(history | cut -c 8- | fzf)
+    echo "$var"
+    echo "$var" | pbcopy 
+}
+
+fh(){
+    cd ~
+    local p=$(fzf)
+    local d=${p%/*}
+    cd "$d"
+}
+
+froot(){
+    cd /
+    local p=$(fzf)
+    local d=${p%/*}
+    cd "$d"
+}
