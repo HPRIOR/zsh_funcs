@@ -94,11 +94,17 @@ f(){
     cd "$d"
 }
 
+# search files and travel to directory of file
+fv(){
+    local p=$(fzf --preview "bat --color=always --style=numbers --line-range=:500 {}")
+    local d=${p%/*}
+    nvim "$d"
+}
 
 
 # search directories (including hidden) and preview files/dir as tree
 fid(){
-    cd $(fd --type directory --hidden | fzf --preview "exa -T -L 1 --long --colour=always --icons --no-permissions --no-time --no-user --no-filesize --group-directories-first --sort=extension ")
+    cd $(fd --type directory --hidden | fzf --preview "exa {} -T -L 1 --long --colour=always --icons --no-permissions --no-time --no-user --no-filesize --group-directories-first --sort=extension ")
 }
 
 # search unique file history and copy output to terminal
@@ -106,6 +112,22 @@ fh(){
      print -z $( history | cut -c 8- | sort | uniq | fzf +s --tac | sed -E 's/ *[0-9]*\*? *//' | sed -E 's/\\/\\\\/g') 
 }
 
+
+fif(){
+    RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case "
+    INITIAL_QUERY="${*:-}"
+    echo $(FZF_DEFAULT_COMMAND="$RG_PREFIX $(printf %q "$INITIAL_QUERY")" \
+      fzf --ansi \
+          --disabled --query "$INITIAL_QUERY" \
+          --bind "change:reload:sleep 0.1; $RG_PREFIX {q} || true" \
+          --delimiter : \
+          --preview 'bat --color=always {1} --highlight-line {2}' \
+          --preview-window 'up,60%,border-bottom,+{2}+3/3,~3')
+}
+
+
+# search through processes and kill the selected one
+# TODO: make output prettier (shorter)
 fkill() {
     local pid 
     if [ "$UID" != "0" ]; then
