@@ -96,6 +96,7 @@ f(){
     fi
 }
 
+# search files and open directory of file with vim
 fvd(){
     local p=$(fzf --preview "bat --color=always --style=numbers --line-range=:500 {}")
     local d=${p%/*}
