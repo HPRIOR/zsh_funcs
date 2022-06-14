@@ -91,14 +91,26 @@ viewport(){
 f(){
     local p=$(fzf --preview "bat --color=always --style=numbers --line-range=:500 {}")
     local d=${p%/*}
-    cd "$d"
+    if [ "x$d" != "x" ]; then
+        cd "$d"
+    fi
 }
 
-# search files and travel to directory of file
-fv(){
+fvd(){
     local p=$(fzf --preview "bat --color=always --style=numbers --line-range=:500 {}")
     local d=${p%/*}
-    nvim "$d"
+    if [ "x$d" != "x" ]; then
+        nvim "$d"
+    fi
+}
+
+# search files and open in vim
+fv(){
+    local p=$(fzf --preview "bat --color=always --style=numbers --line-range=:500 {}")
+    if [ "x$p" != "x" ]; then
+        # TODO: open directory with nvim, add option to display selected file
+        nvim "$p"
+    fi
 }
 
 
@@ -131,7 +143,9 @@ fif(){
           --preview 'bat --color=always {1} --highlight-line {2}' \
           --preview-window 'up,60%,border-bottom,+{2}+3/3,~3')
     local result=${fzf_result%%:*}
-    nvim $result
+    if [ "x$result" != "x" ]; then
+        nvim $result
+    fi
 }
 
 
