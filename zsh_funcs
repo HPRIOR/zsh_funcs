@@ -107,7 +107,7 @@ f(){
 }
 
 # search files and open directory of file with vim
-# todo use fd instead
+# TODO cd into directory
 fvd(){
     while getopts "a" option; do
     case ${option} in
@@ -126,6 +126,7 @@ fvd(){
 }
 
 # search files and open in vim
+# TODO cd into directory and cd back out when done:
 fv(){
     while getopts "a" option; do
     case ${option} in
