@@ -4,6 +4,7 @@ export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden -g "!{node_modul
 #Alias
 alias vi="nvim"
 alias vim="nvim"
+alias ls="exa"
 alias scap="flameshot gui"
 alias mountnas="sudo mount 192.168.0.56:/ /mnt/nas"
 alias umountnas="sudo umount /mnt/nas"
@@ -17,6 +18,7 @@ alias editkitty="cd ~/.config/kitty && vi * && cd -"
 alias shutdown="wait-shutdown.sh"
 alias restart="wait-restart.sh"
 alias gitupdate="git commit -am 'update' && git push"
+alias lzd="lazydocker"
 
 # suffix alias (opens files with provided application)
 alias -s txt="nvim"
