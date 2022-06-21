@@ -20,6 +20,7 @@ alias restart="wait-restart.sh"
 alias gitupdate="git commit -am 'update' && git push"
 alias lzd="lazydocker"
 alias lzg="lazygit"
+alias diffm="git diff master..."
 
 # suffix alias (opens files with provided application)
 alias -s txt="nvim"
