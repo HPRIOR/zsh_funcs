@@ -111,7 +111,6 @@ f(){
 }
 
 # search files and open directory of file with vim
-# TODO cd into directory
 fvd(){
     while getopts "a" option; do
     case ${option} in
@@ -120,17 +119,17 @@ fvd(){
     done
 
     if [ "x$p" = "x" ]; then
-        local p=$(fd --type directory | fzf --preview "bat --color=always --style=numbers --line-range=:500 {}")
+        local p=$(FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs -g "!{node_modules/*,.git/*}"' fzf --preview "bat --color=always --style=numbers --line-range=:500 {}")
     fi
-
+ 
     local d=${p%/*}
     if [ "x$d" != "x" ]; then
-        nvim "$d"
+        cd "$d" && nvim "$d" && cd -
     fi
+
 }
 
 # search files and open in vim
-# TODO cd into directory and cd back out when done:
 fv(){
     while getopts "a" option; do
     case ${option} in
@@ -142,9 +141,10 @@ fv(){
         local p=$(FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs -g "!{node_modules/*,.git/*}"' fzf --preview "bat --color=always --style=numbers --line-range=:500 {}")
     fi
 
+    local d=${p%/*}
     if [ "x$p" != "x" ]; then
         # TODO: open directory with nvim, add option to display selected file
-        nvim "$p"
+        cd "$d" && nvim "$p" && cd -
     fi
 }
 
@@ -178,6 +178,7 @@ fif(){
           --preview 'bat --color=always {1} --highlight-line {2}' \
           --preview-window 'up,60%,border-bottom,+{2}+3/3,~3')
     local result=${fzf_result%%:*}
+
     if [ "x$result" != "x" ]; then
         nvim $result
     fi
