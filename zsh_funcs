@@ -21,6 +21,7 @@ alias gitupdate="git commit -am 'update' && git push"
 alias lzd="lazydocker"
 alias lzg="lazygit"
 alias diffm="git diff master..."
+alias changes="git diff *"
 
 # suffix alias (opens files with provided application)
 alias -s txt="nvim"
@@ -184,6 +185,8 @@ fif(){
     fi
 }
 
+# search through executable command in path - preview with tldr page
+# TODO: choose preview based on what is avail
 fp(){
     local p=$(compgen -c | sed '/^_/d'| fzf --preview "tldr {}")
     print -z $p
