@@ -88,8 +88,16 @@ viewport(){
 }
 
 # search files and travel to directory of file
+# -a option will search all files including hidden
 f(){
-    local p=$(fzf --preview "bat --color=always --style=numbers --line-range=:500 {}")
+    while getopts "a" option; do
+    case ${option} in
+        a) local p=$(fzf --preview "bat --color=always --style=numbers --line-range=:500 {}") 
+    esac
+    done
+
+    local p=$(FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs' fzf --preview "bat --color=always --style=numbers --line-range=:500 {}")
+ 
     local d=${p%/*}
     if [ "x$d" != "x" ]; then
         cd "$d"
