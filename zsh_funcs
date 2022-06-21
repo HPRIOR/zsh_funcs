@@ -1,5 +1,5 @@
 # make fzf use rg and include hidden files
-export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden'
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden -g "!{node_modules/*,.git/*}"'
 
 #Alias
 alias vi="nvim"
@@ -96,7 +96,7 @@ f(){
     esac
     done
 
-    local p=$(FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs' fzf --preview "bat --color=always --style=numbers --line-range=:500 {}")
+    local p=$(FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs -g "!{node_modules/*,.git/*}"' fzf --preview "bat --color=always --style=numbers --line-range=:500 {}")
  
     local d=${p%/*}
     if [ "x$d" != "x" ]; then
