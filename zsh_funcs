@@ -144,8 +144,13 @@ fv(){
 
     local d=${p%/*}
     if [ "x$p" != "x" ]; then
-        # TODO: open directory with nvim, add option to display selected file
-        cd "$d" && nvim "$p" && cd -
+        if [ "$p" != "$d" ]; then # if in a new directory
+            cd "$d" && nvim "$p" && cd -
+        else
+            nvim "$p"
+        fi 
+
+        
     fi
 }
 
