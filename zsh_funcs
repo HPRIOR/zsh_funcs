@@ -5,6 +5,7 @@ export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden -g "!{node_modul
 alias vi="nvim"
 alias vim="nvim"
 alias ls="exa"
+alias la="exa -a"
 alias scap="flameshot gui"
 alias mountnas="sudo mount 192.168.0.56:/ /mnt/nas"
 alias umountnas="sudo umount /mnt/nas"
