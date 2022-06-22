@@ -158,7 +158,7 @@ fv(){
 
 # search directories  and preview files/dir as tree
 fid(){
-    cd $(fd --type directory | fzf --preview "exa {} -T -L 1 --long --colour=always --icons --no-permissions --no-time --no-user --no-filesize --group-directories-first --sort=extension ")
+    cd $(fd -u --type directory | fzf --preview "exa {} -T -L 1 --long --colour=always --icons --no-permissions --no-time --no-user --no-filesize --group-directories-first --sort=extension ")
 }
 
 # search unique file history and copy output to terminal TODO: fix me
