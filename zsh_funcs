@@ -4,6 +4,8 @@ export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden -g "!{node_modul
 #Alias
 alias vi="nvim"
 alias vim="nvim"
+alias v="nvim ."
+alias vall="nvim *"
 alias ls="exa"
 alias la="exa -a"
 alias scap="flameshot gui"
