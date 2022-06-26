@@ -27,11 +27,19 @@ alias diffm="git diff master..."
 alias changes="git diff *"
 alias checkout="git checkout"
 alias newcheckout="git checkout -b "
+alias sp="i3-save-profile 3 $1"
 
 # suffix alias (opens files with provided application)
 alias -s txt="nvim"
 
 # function alias
+
+lp(){
+    local result=$(ls "$HOME/.config/i3/profiles/" | fzf)
+    if [ "x$result" != "x" ]; then
+        i3-restore-profile 3 $result
+    fi
+}
 
 mkcd(){
     mkdir $1 && cd $1
