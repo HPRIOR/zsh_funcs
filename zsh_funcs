@@ -28,6 +28,7 @@ alias changes="git diff *"
 alias checkout="git checkout"
 alias newcheckout="git checkout -b "
 alias sp="i3-save-profile 3 $1"
+alias killws="i3-msg '[all] kill'"
 
 # suffix alias (opens files with provided application)
 alias -s txt="nvim"
