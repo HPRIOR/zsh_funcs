@@ -25,6 +25,8 @@ alias lzd="lazydocker"
 alias lzg="lazygit"
 alias diffm="git diff master..."
 alias changes="git diff *"
+alias checkout="git checkout"
+alias newcheckout="git checkout -b "
 
 # suffix alias (opens files with provided application)
 alias -s txt="nvim"
