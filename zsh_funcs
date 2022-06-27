@@ -174,6 +174,12 @@ fid(){
     cd $(fd -u --type directory | fzf --preview "exa {} -T -L 1 --long --colour=always --icons --no-permissions --no-time --no-user --no-filesize --group-directories-first --sort=extension ")
 }
 
+# search through code directory  and preview files/dir as tree
+fic(){
+    cd $(fd -u --type directory . '/Users/harry.prior/code' | fzf --preview "exa {} -T -L 1 --long --colour=always --icons --no-permissions --no-time --no-user --no-filesize --group-directories-first --sort=extension ")
+}
+
+
 # search unique file history and copy output to terminal TODO: fix me
 fh(){
      print -z $( history | cut -c 8- | sort | uniq | fzf +s --tac | sed -E 's/ *[0-9]*\*? *//' | sed -E 's/\\/\\\\/g') 
